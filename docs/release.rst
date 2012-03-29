@@ -5,10 +5,10 @@ Releasing a new version
 
 Releasing a new version of `spinrewriter` involves the following steps:
 
-  * Create a git tag for the release.
-  * Push the git tag upstream to GitHub.
-  * Generate a distribution file for the package.
-  * Upload the generated package to Python Package Index (PyPI).
+  # Create a git tag for the release.
+  # Push the git tag upstream to GitHub.
+  # Generate a distribution file for the package.
+  # Upload the generated package to Python Package Index (PyPI).
 
 
 Checklist
@@ -19,7 +19,7 @@ Before every release make sure that:
   #. You have documented your changes in the ``HISTORY.rst`` file.
 
   #. You have modified the version identifier in the ``version.txt`` to reflect
-     the new release. See :ref:`version_numbers` for details.
+     the new release.
 
   #. The package description (generated from ``README.rst`` and others) renders
      correctly by running ``bin/longtest``.
@@ -54,15 +54,17 @@ For help with releasing we use ``jarn.mkreleaser``. It's included in the
 
 Once this is done we need to manually push upstream the new tag that
 ``mkrelease`` created. Hopefully this manual step won't be needed in the future
-and will be handled already by ``jarn.mkrelease``.
+and will be handled already by ``jarn.mkrelease``::
+
+    $ git push --tags
 
 
 Example
 -------
 
 In the following example we are releasing version 0.1 of `spinrewriter`. The
-package has been prepared so that the ``version.txt`` contains the version
-``0.1``, this change has been committed to got and all changes have been pushed
+package has been prepared so that ``version.txt`` contains the version ``0.1``,
+this change has been committed to git and all changes have been pushed
 upstream to GitHub::
 
   # Check that package description is rendered correctly

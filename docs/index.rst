@@ -1,8 +1,12 @@
 .. include:: ../README.rst
-.. include:: HISTORY.rst
-.. include:: LICENSE.rst
 
+API
+===
 
+.. toctree::
+    :maxdepth: 2
+
+    api.rst
 
 Developer documentation
 =======================
@@ -10,10 +14,11 @@ Developer documentation
 .. toctree::
     :maxdepth: 2
 
-    api.rst
     conventions.rst
     release.rst
 
+.. include:: HISTORY.rst
+.. include:: LICENSE.rst
 
 Indices and tables
 ==================
