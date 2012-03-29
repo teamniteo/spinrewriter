@@ -41,6 +41,10 @@ setup(name='spinrewriter',
           'test': [
               'mock',
               'unittest2',
-          ]
+          ],
+          'deploy': [
+              'zest.releaser',   # bin/longtest
+              'jarn.mkrelease',  # bin/mkrelease
+          ],
       },
       )
