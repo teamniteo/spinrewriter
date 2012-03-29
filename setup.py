@@ -13,38 +13,38 @@ def read(*rnames):
 version = read('src', 'spinrewriter', 'version.txt').strip()
 
 setup(name='spinrewriter',
-      version=version,
-      description="https://github.com/niteoweb/spinrewriter",
-      long_description=read('README.rst') +
-                       read('docs', 'HISTORY.rst') +
-                       read('docs', 'LICENSE.rst'),
-      classifiers=[
+    version=version,
+    description="https://github.com/niteoweb/spinrewriter",
+    long_description=read('README.rst') +
+                     read('docs', 'HISTORY.rst') +
+                     read('docs', 'LICENSE.rst'),
+    classifiers=[
         "Programming Language :: Python",
         "Topic :: Internet :: WWW/HTTP",
+    ],
+    keywords='API spinner SpinRewriter',
+    author='NiteoWeb Ltd.',
+    author_email='info@niteoweb.com',
+    url='http://www.niteoweb.com',
+    license='BSD',
+    packages=find_packages('src', exclude=['ez_setup']),
+    package_dir={'': 'src'},
+    include_package_data=True,
+    zip_safe=False,
+    test_suite='spinrewriter',
+    install_requires=[
+        'setuptools',
+    ],
+    extras_require={
+        # list libs needed for unittesting this project
+        'test': [
+            'mock',
+            'unittest2',
         ],
-      keywords='API spinner SpinRewriter',
-      author='NiteoWeb Ltd.',
-      author_email='info@niteoweb.com',
-      url='http://www.niteoweb.com',
-      license='BSD',
-      packages=find_packages('src', exclude=['ez_setup']),
-      package_dir={'': 'src'},
-      include_package_data=True,
-      zip_safe=False,
-      test_suite='spinrewriter',
-      install_requires=[
-          # list project dependencies
-          'setuptools',
-      ],
-      extras_require={
-          # list libs needed for unittesting this project
-          'test': [
-              'mock',
-              'unittest2',
-          ],
-          'deploy': [
-              'zest.releaser',   # bin/longtest
-              'jarn.mkrelease',  # bin/mkrelease
-          ],
-      },
-      )
+        # list libs needed for releasing this project
+        'deploy': [
+            'zest.releaser',   # bin/longtest
+            'jarn.mkrelease',  # bin/mkrelease
+        ],
+    },
+)
