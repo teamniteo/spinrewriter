@@ -18,8 +18,8 @@ Install
 
 Install into your Python path using `pip` or `easy_install`::
 
-    $ pip install tbs
-    $ easy_install tbs
+    $ pip install spinrewriter
+    $ easy_install spinrewriter
 
 
 Usage
