@@ -52,12 +52,6 @@ For help with releasing we use ``jarn.mkreleaser``. It's included in the
     username = fred
     password = secret
 
-Once this is done we need to manually push upstream the new tag that
-``mkrelease`` created. Hopefully this manual step won't be needed in the future
-and will be handled already by ``jarn.mkrelease``::
-
-    $ git push --tags
-
 
 Example
 -------
@@ -72,6 +66,17 @@ upstream to GitHub::
 
   # Make a release and upload it to PyPI
   $ bin/mkrelease -d pypi -pq ./
+  Releasing spinrewriter 0.1
+  Tagging spinrewriter 0.1
+  To git@github.com:niteoweb/spinrewriter.git
+  * [new tag]         0.1 -> 0.1
+  running egg_info
+  running sdist
+  warning: sdist: standard file not found: should have one of README, README.txt
+  running register
+  Server response (200): OK
+  running upload
+  warning: sdist: standard file not found: should have one of README, README.txt
+  Server response (200): OK
+  done
 
-  # Push new tag to GitHub
-  $ git push --tags
