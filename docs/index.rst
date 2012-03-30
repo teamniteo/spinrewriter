@@ -17,6 +17,17 @@ Developer documentation
     conventions.rst
     release.rst
 
+
+Credits
+=======
+
+* Development by `NiteoWeb Ltd. <http://www.niteoweb.com>`_
+* Code and documentation snippets inspired by `HexagonIT Oy
+  <http://www.hexagonit.fi>`_.
+* Similar package used as point-of-reference is `thebestspinner
+  <http://pypi.python.org/pypi/thebestspinner>`_ by Peter Flood.
+
+
 .. include:: HISTORY.rst
 .. include:: LICENSE.rst
 
