@@ -18,10 +18,11 @@ Dependencies
   On a Debian based system install the ``git-core`` package. On OS X, get the
   latest version from http://code.google.com/p/git-osx-installer/.
 
-**Python**
+**Python 2.6**
 
   On a Debian based system install the ``python2.6-dev`` package. On OS X (and
-  others) use the `buildout.python <http://TODO>`_ to prepare a clean Python installation.
+  others) use the `buildout.python <http://TODO>`_ to prepare a clean Python
+  installation.
 
 
 Build
