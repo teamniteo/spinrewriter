@@ -5,10 +5,10 @@ Releasing a new version
 
 Releasing a new version of `spinrewriter` involves the following steps:
 
-  # Create a git tag for the release.
-  # Push the git tag upstream to GitHub.
-  # Generate a distribution file for the package.
-  # Upload the generated package to Python Package Index (PyPI).
+#. Create a git tag for the release.
+#. Push the git tag upstream to GitHub.
+#. Generate a distribution file for the package.
+#. Upload the generated package to Python Package Index (PyPI).
 
 
 Checklist
@@ -16,26 +16,26 @@ Checklist
 
 Before every release make sure that:
 
-  #. You have documented your changes in the ``HISTORY.rst`` file.
+#. You have documented your changes in the ``HISTORY.rst`` file.
 
-  #. You have modified the version identifier in the ``version.txt`` to reflect
-     the new release.
+#. You have modified the version identifier in the ``version.txt`` to reflect
+   the new release.
 
-  #. The package description (generated from ``README.rst`` and others) renders
-     correctly by running ``bin/longtest``.
+#. You have confirmed that the package description (generated from
+   ``README.rst`` and others) renders correctly by running ``bin/longtest``.
 
-  #. You have committed all changes to the git repository and pushed them
-     upstream.
+#. You have committed all changes to the git repository and pushed them
+   upstream.
 
-  #. You have the working directory checked out at the revision you wish to
-     release.
+#. You have the working directory checked out at the revision you wish to
+   release.
 
 
 Actions
 -------
 
-For help with releasing we use ``jarn.mkreleaser``. It's included in the
-``buildout.cfg`` and should already be installed in your local bin by::
+For help with releasing we use ``jarn.mkreleaser``. It's listed as a dependency
+in ``setup.py`` and should already be installed in your local bin::
 
     $ bin/mkrelease -d pypi -pq ./
 
@@ -80,3 +80,6 @@ upstream to GitHub::
   Server response (200): OK
   done
 
+.. note::
+  Please ignore the sdist warning about README file above. PyPI does not depend
+  on it and it's just a bug in setupools (reported and waiting to be fixed).
