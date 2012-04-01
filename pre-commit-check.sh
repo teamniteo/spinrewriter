@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo 'Running tests'
+echo '====== Running tests ========='
 bin/py setup.py test
 
 echo '====== Running PyFlakes ======'
