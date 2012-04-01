@@ -14,6 +14,7 @@ Developer documentation
 .. toctree::
     :maxdepth: 2
 
+    env.rst
     conventions.rst
     release.rst
 
