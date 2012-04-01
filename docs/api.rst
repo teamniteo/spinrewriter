@@ -1,17 +1,22 @@
-api_quota
+Initialization
+==============
+
+.. automethod:: spinrewriter.SpinRewriter.__init__
+
+API quota
 =========
 
-.. automethod:: spinrewriter.api_quota
+.. automethod:: spinrewriter.SpinRewriter.api_quota
 
 
-text_with_spintax
+Text with spintax
 =================
 
 .. automodule:: spinrewriter.text_with_spintax
 
 
-unique_variation
-===============
+Spinned text
+============
 
 .. automethod:: spinrewriter.unique_variation
 
