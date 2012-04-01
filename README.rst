@@ -9,7 +9,7 @@ text. This package provides a way to easily interact with `SpinRewriter API
 <http://www.spinrewriter.com/registration>`_.
 
 * `Source code @ GitHub <https://github.com/niteoweb/spinrewriter>`_
-* `Releases @ PyPI <http://pypi.python.org/pypi/spinrewriter>`_
+* `Releases @ PyPI <http://pypi.python.org/pypi/spinrewriter#downloads>`_
 * `Documentation @ ReadTheDocs <http://readthedocs.org/docs/spinrewriter>`_
 
 
