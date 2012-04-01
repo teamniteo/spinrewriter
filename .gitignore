@@ -6,3 +6,4 @@ develop-eggs/
 docs/doctrees/
 docs/html/
 docs/make.bat
+dist/
