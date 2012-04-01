@@ -14,7 +14,7 @@ version = read('src', 'spinrewriter', 'version.txt').strip()
 
 setup(name='spinrewriter',
     version=version,
-    description="https://github.com/niteoweb/spinrewriter",
+    description="Python bindings for SpinRewriter API",
     long_description=read('README.rst') +
                      read('docs', 'HISTORY.rst') +
                      read('docs', 'LICENSE.rst'),
