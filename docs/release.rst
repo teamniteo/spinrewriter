@@ -1,5 +1,6 @@
 .. _releasing_a_new_version:
 
+=======================
 Releasing a new version
 =======================
 
@@ -12,7 +13,7 @@ Releasing a new version of `spinrewriter` involves the following steps:
 
 
 Checklist
----------
+=========
 
 Before every release make sure that:
 
@@ -32,7 +33,7 @@ Before every release make sure that:
 
 
 Actions
--------
+=======
 
 For help with releasing we use ``jarn.mkreleaser``. It's listed as a dependency
 in ``setup.py`` and should already be installed in your local bin::
@@ -54,7 +55,7 @@ in ``setup.py`` and should already be installed in your local bin::
 
 
 Example
--------
+=======
 
 In the following example we are releasing version 0.1 of `spinrewriter`. The
 package has been prepared so that ``version.txt`` contains the version ``0.1``,
