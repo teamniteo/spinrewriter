@@ -175,7 +175,7 @@ class Api(object):
         """
         #NOTE: this could be improved to conditionally include some optional params (their default values would be None),
         #but it's only a minor optimization and would make code a bit more complicated
-        protected_terms = "\n".join(protected_terms) if protected_terms else []
+        protected_terms = "\n".join(protected_terms) if protected_terms else ""
         # protected_terms can be separated by other characters also, like commas
 
         params = (

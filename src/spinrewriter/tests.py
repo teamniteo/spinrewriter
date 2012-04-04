@@ -137,3 +137,66 @@ class TestApi(unittest.TestCase):
         self.assertEquals(result['nested_spintax'], u"false")
         self.assertEquals(result['confidence_level'], u"medium")
         self.assertEquals(result['response'], u"This is my animal food.")
+
+    @mock.patch('spinrewriter.Api._send_request')
+    def test_protected_terms_transformation(self, _send_request):
+        """Test that protected_terms are correctly transformed into a string."""
+        # prepare arguments for calling _transform_plain_text
+        args = dict(
+            action=Api.ACTION.unique_variation,
+            text="This is my pet food.",
+            protected_terms=['food', 'cat'],
+            confidence_level=Api.CONFIDENCE_LVL.medium,
+            nested_spintax=False,
+            spintax_format=Api.SPINTAX_FORMAT.pipe_curly,
+        )
+
+        # we don't care what the response is
+        _send_request.return_value = None
+
+        # call it
+        self.api._transform_plain_text(**args)
+
+        # now test that protected_terms are in correct format
+        _send_request.assert_called_with((
+            ('email_address', 'foo@bar.com'),
+            ('api_key', 'my_api_key'),
+            ('action', 'unique_variation'),
+            ('text', 'This is my pet food.'),
+            ('protected_terms', 'food\ncat'),  # This is the only line we are interested in here
+            ('confidence_level', 'medium'),
+            ('nested_spintax', False),
+            ('spintax_format', '{|}'),
+        ))
+
+    @mock.patch('spinrewriter.Api._send_request')
+    def test_protected_terms_empty(self, _send_request):
+        """Test that correct default value is set for protected_terms if the
+        list is empty."""
+        # prepare arguments for calling _transform_plain_text
+        args = dict(
+            action=Api.ACTION.unique_variation,
+            text="This is my pet food.",
+            protected_terms=[],
+            confidence_level=Api.CONFIDENCE_LVL.medium,
+            nested_spintax=False,
+            spintax_format=Api.SPINTAX_FORMAT.pipe_curly,
+        )
+
+        # we don't care what the response is
+        _send_request.return_value = None
+
+        # call it
+        self.api._transform_plain_text(**args)
+
+        # now test that protected_terms are in correct format
+        _send_request.assert_called_with((
+            ('email_address', 'foo@bar.com'),
+            ('api_key', 'my_api_key'),
+            ('action', 'unique_variation'),
+            ('text', 'This is my pet food.'),
+            ('protected_terms', ''),  # This is the only line we are interested in here
+            ('confidence_level', 'medium'),
+            ('nested_spintax', False),
+            ('spintax_format', '{|}'),
+        ))
