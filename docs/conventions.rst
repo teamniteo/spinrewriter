@@ -100,7 +100,7 @@ You run tests like this:
 
 .. sourcecode:: bash
 
-    $ bin/test -s spinrewriter
+    $ bin/test
 
 
 .. _syntax-validation:
