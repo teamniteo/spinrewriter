@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+import string
 import urllib
 import urllib2
 
@@ -71,7 +72,7 @@ class Api(object):
     """ collection of all response fields' names """
 
     _tmp_list = ['ok', 'error']
-    STATUS = namedtuple('STATUS', ['ok', 'error'])(*map("".upper, _tmp_list))
+    STATUS = namedtuple('STATUS', ['ok', 'error'])(*map(string.upper, _tmp_list))
     """ possible response status strings returned by API """
 
     def __init__(self, email_address, api_key):
@@ -233,5 +234,3 @@ class SpinRewriter(object):
         response = self.api.unique_variation(text, confidence_level)
         #TODO: error handling here ... use defined exceptions (if response[Api.RESP_P_NAMES.response] != Api.STATUS.ok
         return response[Api.RESP_P_NAMES.response]
-
-
