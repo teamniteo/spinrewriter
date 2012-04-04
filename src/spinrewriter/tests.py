@@ -7,6 +7,10 @@ import mock
 
 class TestApi(unittest.TestCase):
 
+    def setUp(self):
+        """Utility code shared among all tests."""
+        self.api = Api('foo@bar.com', 'my_api_key')
+
     @mock.patch('spinrewriter.urllib2')
     def test_api_quota_call(self, urllib2):
         """Test if Api.api_quota() correctly parses the response it gets from
@@ -22,8 +26,7 @@ class TestApi(unittest.TestCase):
         urllib2.urlopen.return_value.read.return_value = mocked_response
 
         # call API
-        api = Api('foo@bar.com', 'my_api_key')
-        result = api.api_quota()
+        result = self.api.api_quota()
 
         # test responses
         self.assertEquals(result['status'], u'OK')
@@ -50,8 +53,7 @@ class TestApi(unittest.TestCase):
         urllib2.urlopen.return_value.read.return_value = mocked_response
 
         # call API
-        api = Api('foo@bar.com', 'my_api_key')
-        result = api.text_with_spintax(
+        result = self.api.text_with_spintax(
             text="This is my pet food.",
             protected_terms=['food', 'cat']
         )
@@ -84,8 +86,7 @@ class TestApi(unittest.TestCase):
         urllib2.urlopen.return_value.read.return_value = mocked_response
 
         # call API
-        api = Api('foo@bar.com', 'my_api_key')
-        result = api.unique_variation(
+        result = self.api.unique_variation(
             text="This is my pet food.",
             protected_terms=['food', 'cat']
         )
@@ -119,8 +120,7 @@ class TestApi(unittest.TestCase):
         urllib2.urlopen.return_value.read.return_value = mocked_response
 
         # call API
-        api = Api('foo@bar.com', 'my_api_key')
-        result = api._transform_plain_text(
+        result = self.api._transform_plain_text(
             action=Api.ACTION.unique_variation,
             text="This is my pet food.",
             protected_terms=[],
