@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo '====== Running tests ========='
-bin/py setup.py test
+bin/test
 
 echo '====== Running PyFlakes ======'
 bin/pyflakes src/spinrewriter

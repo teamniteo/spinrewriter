@@ -6,4 +6,4 @@ class TestFoo(unittest.TestCase):
 
     def test_bar(self):
         a = 1
-        self.assertEquals(1, a)
+        self.assertEquals(2, a)
