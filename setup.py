@@ -31,7 +31,6 @@ setup(name='spinrewriter',
     package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
-    test_suite='spinrewriter',
     install_requires=[
         'setuptools',
     ],
