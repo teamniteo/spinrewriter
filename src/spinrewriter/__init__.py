@@ -114,7 +114,7 @@ class Api(object):
             :return: processed text and some other meta info
             :rtype: dictionary
         """
-        response = self._get_plain_text_transformed(self.ACTION.text_with_spintax, text, protected_terms, confidence_level,
+        response = self._transform_plain_text(self.ACTION.text_with_spintax, text, protected_terms, confidence_level,
                                                     nested_spintax, spintax_format)
         return response
 
@@ -136,15 +136,18 @@ class Api(object):
             :return: processed text and some other meta info
             :rtype: dictionary
         """
-        response = self._get_plain_text_transformed(self.ACTION.unique_variation, text, protected_terms, confidence_level,
+        response = self._transform_plain_text(self.ACTION.unique_variation, text, protected_terms, confidence_level,
                                                     nested_spintax, spintax_format)
         return response
 
-    def _get_plain_text_transformed(self, action, text, protected_terms, confidence_level,
+    def _transform_plain_text(self, action, text, protected_terms, confidence_level,
                                     nested_spintax, spintax_format):
-        """ Pack parameters into format as expected by the _send_request method invoke that method.
+        """Transform plain text using SpinRewriter API.
 
-            :param action: name of the action that will be requestd from API
+        Pack parameters into format as expected by the _send_request method and
+        invoke the action method to get transformed text from the API.
+
+            :param action: name of the action that will be requested from API
             :type action: string
             :param text: text to process
             :type text: string
