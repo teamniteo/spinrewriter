@@ -39,13 +39,19 @@ class Api(object):
     """
     A class representing the Spin Rewriter API (http://www.spinrewriter.com/)
     """
+    URL = 'http://www.spinrewriter.com/action/api'
+    """
+    URL for invoking the API
+    """
+
     _tmp_list = ['api_quota', 'text_with_spintax', 'unique_variation', 'unique_variation_from_spintax']
     ACTION = namedtuple('ACTION', _tmp_list)(*_tmp_list)
     """
     collection of possible values for the action parameter
     """
 
-    CONFIDENCE_LEVEL = namedtuple('CONFIDENCE_LEVEL', ['low', 'medium', 'high'])(*range(3))
+    _tmp_list = ['low', 'medium', 'high']
+    CONFIDENCE_LVL = namedtuple('CONFIDENCE_LVL', ['low', 'medium', 'high'])(*_tmp_list)
     """
     collection of possible values for the confidence_level parameter
     """
@@ -64,8 +70,11 @@ class Api(object):
     RESP_P_NAMES = namedtuple('RESP_P_NAMES', _tmp_list)(*_tmp_list)
     """ collection of all response fields' names """
 
+    _tmp_list = ['ok', 'error']
+    STATUS = namedtuple('STATUS', ['ok', 'error'])(*map("".upper, _tmp_list))
+    """ possible response status strings returned by API """
+
     def __init__(self, email_address, api_key):
-        self.url = 'http://www.spinrewriter.com/action/api'
         self.email_address = email_address
         self.api_key = api_key
 
@@ -78,7 +87,7 @@ class Api(object):
             :return: API's response (already JSON-decoded)
             :rtype: dictionary
         """
-        con = urllib2.urlopen(self.url, urllib.urlencode(params))
+        con = urllib2.urlopen(self.URL, urllib.urlencode(params))
         response = con.read()
         return json.loads(response)
 
@@ -96,7 +105,7 @@ class Api(object):
         response = self._send_request(params)
         return response
 
-    def text_with_spintax(self, text, protected_terms=None, confidence_level=CONFIDENCE_LEVEL.medium,
+    def text_with_spintax(self, text, protected_terms=None, confidence_level=CONFIDENCE_LVL.medium,
                           nested_spintax=False, spintax_format=SPINTAX_FORMAT.pipe_curly):
         """ Return processed spun text with spintax.
 
@@ -118,7 +127,7 @@ class Api(object):
                                                     nested_spintax, spintax_format)
         return response
 
-    def unique_variation(self, text, protected_terms=None, confidence_level=CONFIDENCE_LEVEL.medium,
+    def unique_variation(self, text, protected_terms=None, confidence_level=CONFIDENCE_LVL.medium,
                          nested_spintax=False, spintax_format=SPINTAX_FORMAT.pipe_curly):
         """ Return a unique variation of the given text.
 
@@ -203,3 +212,26 @@ class Api(object):
         )
         response = self._send_request(params)
         return response
+
+
+class SpinRewriter(object):
+    """A facade for easier usage of the raw Spin Rewriter API."""
+
+    def __init__(self, email_address, api_key):
+        self.email_address = email_address
+        self.api_key = api_key
+        self.api = Api(email_address, api_key)
+
+    def unique_variation(self, text, confidence_level=Api.CONFIDENCE_LVL.medium):
+        """ TODO:  """
+        response = self.api.unique_variation(text, confidence_level)
+        #TODO: error handling here ... use defined exceptions
+        return response[Api.RESP_P_NAMES.response]
+
+    def text_with_spintax(self, text, confidence_level=Api.CONFIDENCE_LVL.medium):
+        """ TODO  """
+        response = self.api.unique_variation(text, confidence_level)
+        #TODO: error handling here ... use defined exceptions (if response[Api.RESP_P_NAMES.response] != Api.STATUS.ok
+        return response[Api.RESP_P_NAMES.response]
+
+
