@@ -100,18 +100,19 @@ class TestApi(unittest.TestCase):
         self.assertEquals(result['response'], u"This is my animal food.")
 
     @mock.patch('spinrewriter.urllib2')
-    def test_transform_plain_text(self, urllib2):
-        """Test if Api.unique_variation() correctly parses the response it gets
-        from SpinRewriter API.
+    def test_transform_plain_text_call(self, urllib2):
+        """Test if Api.transform_plain_text() correctly parses the response it
+        gets from SpinRewriter API. This method is used by unique_variation()
+        and text_with_spintax().
         """
 
         # mock response from urllib2
         mocked_response = u"""{
             "status":"OK",
             "response":"This is my animal food.",
-            "api_requests_made":21,
-            "api_requests_available":79,
-            "protected_terms":"food, cat",
+            "api_requests_made":22,
+            "api_requests_available":78,
+            "protected_terms":"",
             "nested_spintax":"false",
             "confidence_level":"medium"
         }"""
@@ -119,16 +120,20 @@ class TestApi(unittest.TestCase):
 
         # call API
         api = Api('foo@bar.com', 'my_api_key')
-        result = api.unique_variation(
+        result = api._transform_plain_text(
+            action=Api.ACTION.unique_variation,
             text="This is my pet food.",
-            protected_terms=['food', 'cat']
+            protected_terms=[],
+            confidence_level=Api.CONFIDENCE_LVL.medium,
+            nested_spintax=False,
+            spintax_format=Api.SPINTAX_FORMAT.pipe_curly,
         )
 
         # test results
         self.assertEquals(result['status'], u'OK')
-        self.assertEquals(result['api_requests_made'], 21)
-        self.assertEquals(result['api_requests_available'], 79)
-        self.assertEquals(result['protected_terms'], u"food, cat")
+        self.assertEquals(result['api_requests_made'], 22)
+        self.assertEquals(result['api_requests_available'], 78)
+        self.assertEquals(result['protected_terms'], u"")
         self.assertEquals(result['nested_spintax'], u"false")
         self.assertEquals(result['confidence_level'], u"medium")
         self.assertEquals(result['response'], u"This is my animal food.")
