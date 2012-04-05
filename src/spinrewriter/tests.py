@@ -163,7 +163,7 @@ class TestApi(unittest.TestCase):
             ('api_key', 'my_api_key'),
             ('action', 'unique_variation'),
             ('text', 'This is my pet food.'),
-            ('protected_terms', 'food\ncat'),  # This is the only line we are interested in here
+            ('protected_terms', 'food\ncat'),  # This is the only line we are interested in here, it needs to be newline-separated
             ('confidence_level', 'medium'),
             ('nested_spintax', False),
             ('spintax_format', '{|}'),
@@ -195,7 +195,7 @@ class TestApi(unittest.TestCase):
             ('api_key', 'my_api_key'),
             ('action', 'unique_variation'),
             ('text', 'This is my pet food.'),
-            ('protected_terms', ''),  # This is the only line we are interested in here
+            ('protected_terms', ''),  # This is the only line we are interested in here, it needs to be an empty string, not an empty list
             ('confidence_level', 'medium'),
             ('nested_spintax', False),
             ('spintax_format', '{|}'),
