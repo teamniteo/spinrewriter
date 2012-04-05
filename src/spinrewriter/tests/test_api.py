@@ -47,8 +47,8 @@ class TestApi(unittest.TestCase):
         # mock response from urllib2
         mocked_response = u"""{
             "status":"OK",
-            "response":"You made 19 API requests in the last 24 hours. 81 still available.",
-            "api_requests_made":19,"api_requests_available":81
+            "response":"You made 0 API requests in the last 24 hours. 100 still available.",
+            "api_requests_made":0,"api_requests_available":100
         }"""
         urllib2.urlopen.return_value.read.return_value = mocked_response
 
@@ -57,9 +57,9 @@ class TestApi(unittest.TestCase):
 
         # test responses
         self.assertEquals(result['status'], u'OK')
-        self.assertEquals(result['api_requests_made'], 19)
-        self.assertEquals(result['api_requests_available'], 81)
-        self.assertEquals(result['response'], u'You made 19 API requests in the last 24 hours. 81 still available.')
+        self.assertEquals(result['api_requests_made'], 0)
+        self.assertEquals(result['api_requests_available'], 100)
+        self.assertEquals(result['response'], u'You made 0 API requests in the last 24 hours. 100 still available.')
 
     @mock.patch('spinrewriter.urllib2')
     def test_text_with_spintax_call(self, urllib2):
@@ -70,9 +70,9 @@ class TestApi(unittest.TestCase):
         # mock response from urllib2
         mocked_response = u"""{
             "status":"OK",
-            "response":"This is my {pet|animal|dog|cat} food.",
-            "api_requests_made":20,
-            "api_requests_available":80,
+            "response":"This is my {dog|pet|animal}.",
+            "api_requests_made":1,
+            "api_requests_available":99,
             "protected_terms":"food, cat",
             "nested_spintax":"false",
             "confidence_level":"medium"
@@ -81,18 +81,18 @@ class TestApi(unittest.TestCase):
 
         # call API
         result = self.api.text_with_spintax(
-            text="This is my pet food.",
+            text="This is my dog.",
             protected_terms=['food', 'cat']
         )
 
         # test results
         self.assertEquals(result['status'], u'OK')
-        self.assertEquals(result['api_requests_made'], 20)
-        self.assertEquals(result['api_requests_available'], 80)
+        self.assertEquals(result['api_requests_made'], 1)
+        self.assertEquals(result['api_requests_available'], 99)
         self.assertEquals(result['protected_terms'], u"food, cat")
         self.assertEquals(result['nested_spintax'], u"false")
         self.assertEquals(result['confidence_level'], u"medium")
-        self.assertEquals(result['response'], u"This is my {pet|animal|dog|cat} food.")
+        self.assertEquals(result['response'], u"This is my {dog|pet|animal}.")
 
     @mock.patch('spinrewriter.urllib2')
     def test_unique_variation_call(self, urllib2):
@@ -103,9 +103,9 @@ class TestApi(unittest.TestCase):
         # mock response from urllib2
         mocked_response = u"""{
             "status":"OK",
-            "response":"This is my animal food.",
-            "api_requests_made":21,
-            "api_requests_available":79,
+            "response":"This is my pet.",
+            "api_requests_made":2,
+            "api_requests_available":98,
             "protected_terms":"food, cat",
             "nested_spintax":"false",
             "confidence_level":"medium"
@@ -114,18 +114,18 @@ class TestApi(unittest.TestCase):
 
         # call API
         result = self.api.unique_variation(
-            text="This is my pet food.",
+            text="This is my dog.",
             protected_terms=['food', 'cat']
         )
 
         # test results
         self.assertEquals(result['status'], u'OK')
-        self.assertEquals(result['api_requests_made'], 21)
-        self.assertEquals(result['api_requests_available'], 79)
+        self.assertEquals(result['api_requests_made'], 2)
+        self.assertEquals(result['api_requests_available'], 98)
         self.assertEquals(result['protected_terms'], u"food, cat")
         self.assertEquals(result['nested_spintax'], u"false")
         self.assertEquals(result['confidence_level'], u"medium")
-        self.assertEquals(result['response'], u"This is my animal food.")
+        self.assertEquals(result['response'], u"This is my pet.")
 
     @mock.patch('spinrewriter.urllib2')
     def test_transform_plain_text_call(self, urllib2):
@@ -137,9 +137,9 @@ class TestApi(unittest.TestCase):
         # mock response from urllib2
         mocked_response = u"""{
             "status":"OK",
-            "response":"This is my animal food.",
-            "api_requests_made":22,
-            "api_requests_available":78,
+            "response":"This is my pet.",
+            "api_requests_made":3,
+            "api_requests_available":97,
             "protected_terms":"",
             "nested_spintax":"false",
             "confidence_level":"medium"
@@ -149,7 +149,7 @@ class TestApi(unittest.TestCase):
         # call API
         result = self.api._transform_plain_text(
             action=Api.ACTION.unique_variation,
-            text="This is my pet food.",
+            text="This is my dog.",
             protected_terms=[],
             confidence_level=Api.CONFIDENCE_LVL.medium,
             nested_spintax=False,
@@ -158,12 +158,12 @@ class TestApi(unittest.TestCase):
 
         # test results
         self.assertEquals(result['status'], u'OK')
-        self.assertEquals(result['api_requests_made'], 22)
-        self.assertEquals(result['api_requests_available'], 78)
+        self.assertEquals(result['api_requests_made'], 3)
+        self.assertEquals(result['api_requests_available'], 97)
         self.assertEquals(result['protected_terms'], u"")
         self.assertEquals(result['nested_spintax'], u"false")
         self.assertEquals(result['confidence_level'], u"medium")
-        self.assertEquals(result['response'], u"This is my animal food.")
+        self.assertEquals(result['response'], u"This is my pet.")
 
     @mock.patch('spinrewriter.Api._send_request')
     def test_protected_terms_transformation(self, _send_request):
@@ -204,7 +204,7 @@ class TestApi(unittest.TestCase):
         # prepare arguments for calling _transform_plain_text
         args = dict(
             action=Api.ACTION.unique_variation,
-            text="This is my pet food.",
+            text="This is my dog.",
             protected_terms=[],
             confidence_level=Api.CONFIDENCE_LVL.medium,
             nested_spintax=False,
@@ -222,7 +222,7 @@ class TestApi(unittest.TestCase):
             ('email_address', 'foo@bar.com'),
             ('api_key', 'test_api_key'),
             ('action', 'unique_variation'),
-            ('text', 'This is my pet food.'),
+            ('text', 'This is my dog.'),
             ('protected_terms', ''),  # This is the only line we are interested in here, it needs to be an empty string, not an empty list
             ('confidence_level', 'medium'),
             ('nested_spintax', False),
