@@ -1,24 +1,18 @@
-Initialization
-==============
-
-.. automethod:: spinrewriter.SpinRewriter.__init__
-
-API quota
-=========
-
-.. automethod:: spinrewriter.SpinRewriter.api_quota
-
-
-Text with spintax
-=================
-
-.. automodule:: spinrewriter.text_with_spintax
-
-
-Spinned text
+SpinRewriter
 ============
 
-.. automethod:: spinrewriter.unique_variation
+.. autoclass:: spinrewriter.SpinRewriter
+    :members:
 
+Raw API access
+==============
 
+.. autoclass:: spinrewriter.Api
+    :members:
+    :private-members:
 
+Exceptions
+==========
+
+.. automodule:: spinrewriter.exceptions
+    :members:
