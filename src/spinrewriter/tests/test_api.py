@@ -12,10 +12,10 @@ class TestApi(unittest.TestCase):
         self.api = Api('foo@bar.com', 'test_api_key')
 
     def test_init(self):
-        """Test that __init__ correctly stores initialization value.
+        """Test initialization of Api.
 
-        self.api has already been initialized in setUp() so we just need to
-        check for values.
+        Api is initialized on every test run and stored as self.sr. We just
+        need to test stored values.
         """
         self.assertEquals(self.api.email_address, 'foo@bar.com')
         self.assertEquals(self.api.api_key, 'test_api_key')
