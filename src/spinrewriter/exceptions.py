@@ -4,6 +4,7 @@
 class SpinRewriterApiError(Exception):
     """Base class for exceptions in Spin Rewriter module."""
     def __init__(self, api_error_msg):
+        #api_error_msg respresents raw error string as returned by API server
         super(SpinRewriterApiError, self).__init__()
         self.api_error_msg = api_error_msg
 
