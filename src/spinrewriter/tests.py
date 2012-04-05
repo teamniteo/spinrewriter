@@ -172,7 +172,8 @@ class TestApi(unittest.TestCase):
     @mock.patch('spinrewriter.Api._send_request')
     def test_protected_terms_empty(self, _send_request):
         """Test that correct default value is set for protected_terms if the
-        list is empty."""
+        list is empty.
+        """
         # prepare arguments for calling _transform_plain_text
         args = dict(
             action=Api.ACTION.unique_variation,
@@ -200,3 +201,21 @@ class TestApi(unittest.TestCase):
             ('nested_spintax', False),
             ('spintax_format', '{|}'),
         ))
+
+    @mock.patch('spinrewriter.urllib2')
+    @mock.patch('spinrewriter.urllib')
+    def test_send_request(self, urllib, urllib2):
+        """Test that _send_requests correctly parses JSON response into a dict
+        and that request parameters get encoded beforehand.
+        """
+        # mock response from connection
+        urllib2.urlopen.return_value.read.return_value = '{"foo":"bar"}'
+
+        # call it
+        result = self.api._send_request({'foo': 'bar'})
+
+        # test response
+        self.assertEquals(result['foo'], 'bar')
+
+        # were parameters encoded?
+        urllib.urlencode.assert_called_with({'foo': 'bar'})
