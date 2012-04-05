@@ -1,8 +1,8 @@
 .. _conventions:
 
-=======================
-Development environment
-=======================
+=====================
+Developer environment
+=====================
 
 Dependencies
 ============
