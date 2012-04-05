@@ -9,7 +9,34 @@ class TestApi(unittest.TestCase):
 
     def setUp(self):
         """Utility code shared among all tests."""
-        self.api = Api('foo@bar.com', 'my_api_key')
+        self.api = Api('foo@bar.com', 'test_api_key')
+
+    def test_init(self):
+        """Test that __init__ correctly stores initialization value.
+
+        self.api has already been initialized in setUp() so we just need to
+        check for values.
+        """
+        self.assertEquals(self.api.email_address, 'foo@bar.com')
+        self.assertEquals(self.api.api_key, 'test_api_key')
+
+    @mock.patch('spinrewriter.urllib2')
+    @mock.patch('spinrewriter.urllib')
+    def test_send_request(self, urllib, urllib2):
+        """Test that _send_requests correctly parses JSON response into a dict
+        and that request parameters get encoded beforehand.
+        """
+        # mock response from connection
+        urllib2.urlopen.return_value.read.return_value = '{"foo":"bar"}'
+
+        # call it
+        result = self.api._send_request({'foo': 'bar'})
+
+        # test response
+        self.assertEquals(result['foo'], 'bar')
+
+        # were parameters encoded?
+        urllib.urlencode.assert_called_with({'foo': 'bar'})
 
     @mock.patch('spinrewriter.urllib2')
     def test_api_quota_call(self, urllib2):
@@ -160,7 +187,7 @@ class TestApi(unittest.TestCase):
         # now test that protected_terms are in correct format
         _send_request.assert_called_with((
             ('email_address', 'foo@bar.com'),
-            ('api_key', 'my_api_key'),
+            ('api_key', 'test_api_key'),
             ('action', 'unique_variation'),
             ('text', 'This is my pet food.'),
             ('protected_terms', 'food\ncat'),  # This is the only line we are interested in here, it needs to be newline-separated
@@ -193,7 +220,7 @@ class TestApi(unittest.TestCase):
         # now test that protected_terms are in correct format
         _send_request.assert_called_with((
             ('email_address', 'foo@bar.com'),
-            ('api_key', 'my_api_key'),
+            ('api_key', 'test_api_key'),
             ('action', 'unique_variation'),
             ('text', 'This is my pet food.'),
             ('protected_terms', ''),  # This is the only line we are interested in here, it needs to be an empty string, not an empty list
@@ -201,21 +228,3 @@ class TestApi(unittest.TestCase):
             ('nested_spintax', False),
             ('spintax_format', '{|}'),
         ))
-
-    @mock.patch('spinrewriter.urllib2')
-    @mock.patch('spinrewriter.urllib')
-    def test_send_request(self, urllib, urllib2):
-        """Test that _send_requests correctly parses JSON response into a dict
-        and that request parameters get encoded beforehand.
-        """
-        # mock response from connection
-        urllib2.urlopen.return_value.read.return_value = '{"foo":"bar"}'
-
-        # call it
-        result = self.api._send_request({'foo': 'bar'})
-
-        # test response
-        self.assertEquals(result['foo'], 'bar')
-
-        # were parameters encoded?
-        urllib.urlencode.assert_called_with({'foo': 'bar'})
