@@ -8,7 +8,7 @@ import urllib2
 
 from collections import namedtuple
 
-from spinrewriter.exceptions import *
+from spinrewriter import exceptions as ex
 
 
 class Api(object):
@@ -165,19 +165,19 @@ class Api(object):
             re.match(error_msg, r"Authentication failed\. Unique API key is not valid for this use\.", re.IGNORECASE) or
             re.match(error_msg, r"This user does not have a valid Spin Rewriter subscription\.", re.IGNORECASE)
             ):
-            raise AuthenticationError(error_msg)
+            raise ex.AuthenticationError(error_msg)
 
         elif re.match(error_msg, r"API quota exceeded\. You can make \d+ requests per day\.", re.IGNORECASE):
-            raise QuotaLimitError(error_msg)
+            raise ex.QuotaLimitError(error_msg)
 
         elif re.match(error_msg, r"You can only submit entirely new text for analysis once every \d seconds\.", re.IGNORECASE):
-            UsageFrequencyError(error_msg)
+            ex.UsageFrequencyError(error_msg)
 
         elif re.match(error_msg, r"Requested action does not exist\. Please refer to the Spin Rewriter API documentation\.", re.IGNORECASE):
-            UnknownActionError(error_msg)  # NOTE: This should never occur unless there is a bug in the API library.
+            ex.UnknownActionError(error_msg)  # NOTE: This should never occur unless there is a bug in the API library.
 
         elif re.match(error_msg, r"Email address and unique API key are both required\. At least one is missing\.", re.IGNORECASE):
-            MissingParameterError(error_msg)  # NOTE: This should never occur unless there is a bug in the API library.
+            ex.MissingParameterError(error_msg)  # NOTE: This should never occur unless there is a bug in the API library.
 
         elif (re.match(error_msg, r"Original text too short\.", re.IGNORECASE) or
               re.match(error_msg, r"Original text too long\. Text can have up to 4,000 words\.", re.IGNORECASE) or
@@ -186,7 +186,7 @@ class Api(object):
               re.match(error_msg, r"Spinning syntax invalid\.", re.IGNORECASE) or
               re.match(error_msg, r"Original text after analysis too long\. Text can have up to 4,000 words\.", re.IGNORECASE)
               ):
-            ParamValueError(error_msg)
+            ex.ParamValueError(error_msg)
 
         elif (re.match(error_msg, r"Analysis of your text failed\. Please inform us about this\.", re.IGNORECASE) or
               re.match(error_msg, r"Synonyms for your text could not be loaded\. Please inform us about this\.", re.IGNORECASE) or
@@ -196,10 +196,10 @@ class Api(object):
               re.match(error_msg, r"Unable to load your analyzed project\.", re.IGNORECASE) or
               re.match(error_msg, r"One-Click Rewrite failed\.", re.IGNORECASE)
               ):
-            InternalApiError(error_msg)
+            ex.InternalApiError(error_msg)
 
         else:
-            raise UnknownApiError(error_msg)
+            raise ex.UnknownApiError(error_msg)
 
     def _transform_plain_text(self, action, text, protected_terms, confidence_level,
                                     nested_spintax, spintax_format):
