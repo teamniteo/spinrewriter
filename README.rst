@@ -2,7 +2,7 @@
 Python bindings for SpinRewriter API
 ====================================
 
-`Spin Rewriter <http://www.spinrewriter.com/>`_ is an online service for
+`Spin Rewriter <www.spinrewriter.com/bigcontentsearch>`_ is an online service for
 spinning text (synonym substitution) that creates unique version(s) of existing
 text. This package provides a way to easily interact with `SpinRewriter API
 <http://www.spinrewriter.com/api>`_. Usage requires an account, `get one here
