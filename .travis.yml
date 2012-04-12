@@ -3,7 +3,6 @@ python:
   - 2.6
 install:
   - sudo apt-get purge python2.5
-  - sudo apt-get install python-profiler
   - python bootstrap.py
   - bin/buildout
 script:
