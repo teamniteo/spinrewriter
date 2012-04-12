@@ -111,7 +111,7 @@ class Api(object):
             return response
 
     def unique_variation_from_spintax(self, text, nested_spintax=False, spintax_format=SPINTAX_FORMAT.pipe_curly):
-        """ Return a unique variation of an already spun text.
+        """Return a unique variation of an already spun text.
 
         :param text: text to process
         :type text: string
@@ -251,13 +251,29 @@ class SpinRewriter(object):
         self.api = Api(email_address, api_key)
 
     def unique_variation(self, text, confidence_level=Api.CONFIDENCE_LVL.medium):
-        """ TODO:  """
+        """Return unique variation of the given text.
+
+        :param text: text to process
+        :type text: string
+        :param confidence_level: how "confident" the spinner API is when transforming the text
+        :type confidence_level: Api.CONFIDENCE_LVL
+
+        :return: spinned version of the original text
+        :rtype: string
+        """
         response = self.api.unique_variation(text, confidence_level)
-        #TODO: error handling here ... use defined exceptions
         return response[Api.RESP_P_NAMES.response]
 
     def text_with_spintax(self, text, confidence_level=Api.CONFIDENCE_LVL.medium):
-        """ TODO  """
+        """Return modified text with spintax elements inserted.
+
+        :param text: text to process
+        :type text: string
+        :param confidence_level: how "confident" the spinner API is when transforming the text
+        :type confidence_level: Api.CONFIDENCE_LVL
+
+        :return: original text with spintax elements
+        :rtype: string
+        """
         response = self.api.unique_variation(text, confidence_level)
-        #TODO: error handling here ... use defined exceptions (if response[Api.RESP_P_NAMES.response] != Api.STATUS.ok
         return response[Api.RESP_P_NAMES.response]
