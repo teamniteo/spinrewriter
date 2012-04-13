@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.1 (Unreleased)
+0.1 (2012-04-13)
 ----------------
 
 - SpinRewriter facade class.
