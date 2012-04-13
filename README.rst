@@ -11,6 +11,7 @@ account, `get one here <http://www.spinrewriter.com/registration>`_.
 * `Source code @ GitHub <https://github.com/niteoweb/spinrewriter>`_
 * `Releases @ PyPI <http://pypi.python.org/pypi/spinrewriter#downloads>`_
 * `Documentation @ ReadTheDocs <http://readthedocs.org/docs/spinrewriter>`_
+* `Continuous Integration @ Travis-CI <travis-ci.org/niteoweb/spinrewriter>`_
 
 
 Install
