@@ -2,11 +2,11 @@
 Python bindings for SpinRewriter API
 ====================================
 
-`Spin Rewriter <www.spinrewriter.com/bigcontentsearch>`_ is an online service for
-spinning text (synonym substitution) that creates unique version(s) of existing
-text. This package provides a way to easily interact with `SpinRewriter API
-<http://www.spinrewriter.com/api>`_. Usage requires an account, `get one here
-<http://www.spinrewriter.com/registration>`_.
+`Spin Rewriter <http://www.spinrewriter.com/bigcontentsearch>`_ is an online
+service for spinning text (synonym substitution) that creates unique version(s)
+of existing text. This package provides a way to easily interact with
+`SpinRewriter API <http://www.spinrewriter.com/api>`_. Usage requires an
+account, `get one here <http://www.spinrewriter.com/registration>`_.
 
 * `Source code @ GitHub <https://github.com/niteoweb/spinrewriter>`_
 * `Releases @ PyPI <http://pypi.python.org/pypi/spinrewriter#downloads>`_
@@ -40,4 +40,5 @@ After installing it, this is how you use it::
     Request a unique variation of processed given text.
     >>> rewriter.unique_variation(text)
     u"This really is some text that we'd love to spin."
+
 
