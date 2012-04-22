@@ -12,7 +12,8 @@ def read(*rnames):
 
 version = read('src', 'spinrewriter', 'version.txt').strip()
 
-setup(name='spinrewriter',
+setup(
+    name='spinrewriter',
     version=version,
     description="Python bindings for SpinRewriter API",
     long_description=read('README.rst') +
