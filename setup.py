@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Installer for this package."""
 
-from setuptools import setup
 from setuptools import find_packages
+from setuptools import setup
 
 import os
 
