@@ -145,7 +145,7 @@ Sphinx documentation
 Un-documented code is broken code.
 
 For every feature you add to the codebase you should also add documentation
-for it in ``docs/sphinx/``.
+for it to ``docs/``.
 
 After adding/modifying documentation, re-build `Sphinx` and check how it is
 displayed:
