@@ -42,7 +42,7 @@ setup(
             'unittest2',
         ],
         # list libs needed for releasing this project
-        'deploy': [
+        'release': [
             'zest.releaser',   # bin/longtest
             'jarn.mkrelease',  # bin/mkrelease
         ],
