@@ -36,7 +36,9 @@ Actions
 =======
 
 For help with releasing we use ``jarn.mkreleaser``. It's listed as a dependency
-in ``setup.py`` and should already be installed in your local bin::
+in ``setup.py`` and should already be installed in your local bin:
+
+.. sourcecode:: bash
 
     $ bin/mkrelease -d pypi -pq ./
 
@@ -60,7 +62,9 @@ Example
 In the following example we are releasing version 0.1 of `spinrewriter`. The
 package has been prepared so that ``version.txt`` contains the version ``0.1``,
 this change has been committed to git and all changes have been pushed
-upstream to GitHub::
+upstream to GitHub:
+
+.. sourcecode:: bash
 
   # Check that package description is rendered correctly
   $ bin/longtest
