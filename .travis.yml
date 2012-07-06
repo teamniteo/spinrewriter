@@ -6,7 +6,8 @@ install:
   - python bootstrap.py
   - bin/buildout -q
 script:
-  - ./pre-commit-check.sh
+#  - ./pre-commit-check.sh
+  - bin/vvv src/spinrewriter
 
 notifications:
   irc:

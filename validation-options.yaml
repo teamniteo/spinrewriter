@@ -3,7 +3,7 @@ tabs:
 
 pep8:
   enable: true
-#  command-line: --ignore E501
+  command-line: --ignore E501
 
 linelength:
     length: 250
