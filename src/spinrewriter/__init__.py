@@ -209,8 +209,7 @@ class Api(object):
         else:
             raise ex.UnknownApiError(error_msg)
 
-    def _transform_plain_text(self,
-                              action, text, protected_terms, confidence_level,
+    def _transform_plain_text(self, action, text, protected_terms, confidence_level,
                               nested_spintax, spintax_format):
         """Transform plain text using SpinRewriter API.
 
