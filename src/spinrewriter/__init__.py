@@ -12,7 +12,9 @@ from spinrewriter import exceptions as ex
 
 
 class Api(object):
-    """A class representing the Spin Rewriter API (http://www.spinrewriter.com/)."""
+    """A class representing the Spin Rewriter API
+    (http://www.spinrewriter.com/).
+    """
     URL = 'http://www.spinrewriter.com/action/api'
     """URL for invoking the API"""
 
@@ -45,7 +47,8 @@ class Api(object):
         self.api_key = api_key
 
     def api_quota(self):
-        """ Return the number of made and remaining API calls for the 24-hour period.
+        """Return the number of made and remaining API calls for the 24-hour
+        period.
 
         :return: remaining API quota
         :rtype: dictionary
@@ -58,8 +61,10 @@ class Api(object):
         response = self._send_request(params)
         return response
 
-    def text_with_spintax(self, text, protected_terms=None, confidence_level=CONFIDENCE_LVL.medium,
-                          nested_spintax=False, spintax_format=SPINTAX_FORMAT.pipe_curly):
+    def text_with_spintax(self, text, protected_terms=None,
+                          confidence_level=CONFIDENCE_LVL.medium,
+                          nested_spintax=False,
+                          spintax_format=SPINTAX_FORMAT.pipe_curly):
         """ Return processed spun text with spintax.
 
         :param text: original text that needs to be changed
@@ -161,10 +166,11 @@ class Api(object):
         """
         error_msg = api_response[self.RESP_P_NAMES.response]
 
-        if (re.match(error_msg, r"Authentication failed\. No user with this email address found\.", re.IGNORECASE) or
+        if (
+            re.match(error_msg, r"Authentication failed\. No user with this email address found\.", re.IGNORECASE) or
             re.match(error_msg, r"Authentication failed\. Unique API key is not valid for this use\.", re.IGNORECASE) or
             re.match(error_msg, r"This user does not have a valid Spin Rewriter subscription\.", re.IGNORECASE)
-            ):
+        ):
             raise ex.AuthenticationError(error_msg)
 
         elif re.match(error_msg, r"API quota exceeded\. You can make \d+ requests per day\.", re.IGNORECASE):
@@ -179,30 +185,33 @@ class Api(object):
         elif re.match(error_msg, r"Email address and unique API key are both required\. At least one is missing\.", re.IGNORECASE):
             ex.MissingParameterError(error_msg)  # NOTE: This should never occur unless there is a bug in the API library.
 
-        elif (re.match(error_msg, r"Original text too short\.", re.IGNORECASE) or
-              re.match(error_msg, r"Original text too long\. Text can have up to 4,000 words\.", re.IGNORECASE) or
-              re.match(error_msg, r"Spinning syntax invalid\. With this action you should provide text with existing valid \{first option\|second option\} spintax\.", re.IGNORECASE) or
-              re.match(error_msg, r"The \{first\|second\} spinning syntax invalid\. Re-check the syntax, i\.e\. curly brackets and pipes\.", re.IGNORECASE) or
-              re.match(error_msg, r"Spinning syntax invalid\.", re.IGNORECASE) or
-              re.match(error_msg, r"Original text after analysis too long\. Text can have up to 4,000 words\.", re.IGNORECASE)
-              ):
+        elif (
+            re.match(error_msg, r"Original text too short\.", re.IGNORECASE) or
+            re.match(error_msg, r"Original text too long\. Text can have up to 4,000 words\.", re.IGNORECASE) or
+            re.match(error_msg, r"Spinning syntax invalid\. With this action you should provide text with existing valid \{first option\|second option\} spintax\.", re.IGNORECASE) or
+            re.match(error_msg, r"The \{first\|second\} spinning syntax invalid\. Re-check the syntax, i\.e\. curly brackets and pipes\.", re.IGNORECASE) or
+            re.match(error_msg, r"Spinning syntax invalid\.", re.IGNORECASE) or
+            re.match(error_msg, r"Original text after analysis too long\. Text can have up to 4,000 words\.", re.IGNORECASE)
+        ):
             ex.ParamValueError(error_msg)
 
-        elif (re.match(error_msg, r"Analysis of your text failed\. Please inform us about this\.", re.IGNORECASE) or
-              re.match(error_msg, r"Synonyms for your text could not be loaded\. Please inform us about this\.", re.IGNORECASE) or
-              re.match(error_msg, r"Unable to load your new analyzed project\.", re.IGNORECASE) or
-              re.match(error_msg, r"Unable to load your existing analyzed project\.", re.IGNORECASE) or
-              re.match(error_msg, r"Unable to find your project in the database\.", re.IGNORECASE) or
-              re.match(error_msg, r"Unable to load your analyzed project\.", re.IGNORECASE) or
-              re.match(error_msg, r"One-Click Rewrite failed\.", re.IGNORECASE)
-              ):
+        elif (
+            re.match(error_msg, r"Analysis of your text failed\. Please inform us about this\.", re.IGNORECASE) or
+            re.match(error_msg, r"Synonyms for your text could not be loaded\. Please inform us about this\.", re.IGNORECASE) or
+            re.match(error_msg, r"Unable to load your new analyzed project\.", re.IGNORECASE) or
+            re.match(error_msg, r"Unable to load your existing analyzed project\.", re.IGNORECASE) or
+            re.match(error_msg, r"Unable to find your project in the database\.", re.IGNORECASE) or
+            re.match(error_msg, r"Unable to load your analyzed project\.", re.IGNORECASE) or
+            re.match(error_msg, r"One-Click Rewrite failed\.", re.IGNORECASE)
+        ):
             ex.InternalApiError(error_msg)
 
         else:
             raise ex.UnknownApiError(error_msg)
 
-    def _transform_plain_text(self, action, text, protected_terms, confidence_level,
-                                    nested_spintax, spintax_format):
+    def _transform_plain_text(self,
+                              action, text, protected_terms, confidence_level,
+                              nested_spintax, spintax_format):
         """Transform plain text using SpinRewriter API.
 
         Pack parameters into format as expected by the _send_request method and

@@ -12,13 +12,16 @@ def read(*rnames):
 
 version = read('src', 'spinrewriter', 'version.txt').strip()
 
+long_description = \
+    read('README.rst') + \
+    read('docs', 'HISTORY.rst') + \
+    read('docs', 'LICENSE.rst')
+
 setup(
     name='spinrewriter',
     version=version,
     description="Python bindings for SpinRewriter API",
-    long_description=read('README.rst') +
-                     read('docs', 'HISTORY.rst') +
-                     read('docs', 'LICENSE.rst'),
+    long_description=long_description,
     classifiers=[
         "Programming Language :: Python",
         "Topic :: Internet :: WWW/HTTP",
