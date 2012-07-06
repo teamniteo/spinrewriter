@@ -1,0 +1,13 @@
+tabs:
+  enable: true
+
+pep8:
+  enable: true
+#  command-line: --ignore E501
+
+linelength:
+    length: 250
+
+jshint:
+    enable: false
+

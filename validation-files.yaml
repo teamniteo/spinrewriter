@@ -1,0 +1,26 @@
+css: |
+  !*
+
+evilspace: |
+  *.py
+
+jshint: |
+  !*
+
+linelength: |
+  *.py
+
+pdb: |
+  *.py
+
+pylint: |
+  !*
+
+rst: |
+  *.rst
+
+tabs: |
+  *.py
+
+pep8: |
+  *.py
