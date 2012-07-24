@@ -284,5 +284,5 @@ class SpinRewriter(object):
         :return: original text with spintax elements
         :rtype: string
         """
-        response = self.api.unique_variation(text, confidence_level)
+        response = self.api.text_with_spintax(text, confidence_level)
         return response[Api.RESP_P_NAMES.response]
