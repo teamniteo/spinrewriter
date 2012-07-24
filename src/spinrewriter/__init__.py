@@ -167,42 +167,42 @@ class Api(object):
         error_msg = api_response[self.RESP_P_NAMES.response]
 
         if (
-            re.match(error_msg, r"Authentication failed\. No user with this email address found\.", re.IGNORECASE) or
-            re.match(error_msg, r"Authentication failed\. Unique API key is not valid for this use\.", re.IGNORECASE) or
-            re.match(error_msg, r"This user does not have a valid Spin Rewriter subscription\.", re.IGNORECASE)
+            re.match(error_msg, r"Authentication failed. No user with this email address found.", re.IGNORECASE) or
+            re.match(error_msg, r"Authentication failed. Unique API key is not valid for this use.", re.IGNORECASE) or
+            re.match(error_msg, r"This user does not have a valid Spin Rewriter subscription.", re.IGNORECASE)
         ):
             raise ex.AuthenticationError(error_msg)
 
-        elif re.match(error_msg, r"API quota exceeded\. You can make \d+ requests per day\.", re.IGNORECASE):
+        elif re.match(error_msg, r"API quota exceeded. You can make \d+ requests per day.", re.IGNORECASE):
             raise ex.QuotaLimitError(error_msg)
 
-        elif re.match(error_msg, r"You can only submit entirely new text for analysis once every \d seconds\.", re.IGNORECASE):
+        elif re.match(error_msg, r"You can only submit entirely new text for analysis once every \d seconds.", re.IGNORECASE):
             ex.UsageFrequencyError(error_msg)
 
-        elif re.match(error_msg, r"Requested action does not exist\. Please refer to the Spin Rewriter API documentation\.", re.IGNORECASE):
+        elif re.match(error_msg, r"Requested action does not exist. Please refer to the Spin Rewriter API documentation.", re.IGNORECASE):
             ex.UnknownActionError(error_msg)  # NOTE: This should never occur unless there is a bug in the API library.
 
-        elif re.match(error_msg, r"Email address and unique API key are both required\. At least one is missing\.", re.IGNORECASE):
+        elif re.match(error_msg, r"Email address and unique API key are both required. At least one is missing.", re.IGNORECASE):
             ex.MissingParameterError(error_msg)  # NOTE: This should never occur unless there is a bug in the API library.
 
         elif (
-            re.match(error_msg, r"Original text too short\.", re.IGNORECASE) or
-            re.match(error_msg, r"Original text too long\. Text can have up to 4,000 words\.", re.IGNORECASE) or
-            re.match(error_msg, r"Spinning syntax invalid\. With this action you should provide text with existing valid \{first option\|second option\} spintax\.", re.IGNORECASE) or
-            re.match(error_msg, r"The \{first\|second\} spinning syntax invalid\. Re-check the syntax, i\.e\. curly brackets and pipes\.", re.IGNORECASE) or
-            re.match(error_msg, r"Spinning syntax invalid\.", re.IGNORECASE) or
-            re.match(error_msg, r"Original text after analysis too long\. Text can have up to 4,000 words\.", re.IGNORECASE)
+            re.match(error_msg, r"Original text too short.", re.IGNORECASE) or
+            re.match(error_msg, r"Original text too long. Text can have up to 4,000 words.", re.IGNORECASE) or
+            re.match(error_msg, r"Spinning syntax invalid. With this action you should provide text with existing valid {first option|second option} spintax.", re.IGNORECASE) or
+            re.match(error_msg, r"The {first|second} spinning syntax invalid. Re-check the syntax, i.e. curly brackets and pipes\.", re.IGNORECASE) or
+            re.match(error_msg, r"Spinning syntax invalid.", re.IGNORECASE) or
+            re.match(error_msg, r"Original text after analysis too long. Text can have up to 4,000 words.", re.IGNORECASE)
         ):
             ex.ParamValueError(error_msg)
 
         elif (
-            re.match(error_msg, r"Analysis of your text failed\. Please inform us about this\.", re.IGNORECASE) or
-            re.match(error_msg, r"Synonyms for your text could not be loaded\. Please inform us about this\.", re.IGNORECASE) or
-            re.match(error_msg, r"Unable to load your new analyzed project\.", re.IGNORECASE) or
-            re.match(error_msg, r"Unable to load your existing analyzed project\.", re.IGNORECASE) or
-            re.match(error_msg, r"Unable to find your project in the database\.", re.IGNORECASE) or
-            re.match(error_msg, r"Unable to load your analyzed project\.", re.IGNORECASE) or
-            re.match(error_msg, r"One-Click Rewrite failed\.", re.IGNORECASE)
+            re.match(error_msg, r"Analysis of your text failed. Please inform us about this.", re.IGNORECASE) or
+            re.match(error_msg, r"Synonyms for your text could not be loaded. Please inform us about this.", re.IGNORECASE) or
+            re.match(error_msg, r"Unable to load your new analyzed project.", re.IGNORECASE) or
+            re.match(error_msg, r"Unable to load your existing analyzed project.", re.IGNORECASE) or
+            re.match(error_msg, r"Unable to find your project in the database.", re.IGNORECASE) or
+            re.match(error_msg, r"Unable to load your analyzed project.", re.IGNORECASE) or
+            re.match(error_msg, r"One-Click Rewrite failed.", re.IGNORECASE)
         ):
             ex.InternalApiError(error_msg)
 
