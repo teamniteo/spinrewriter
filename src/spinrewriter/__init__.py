@@ -274,7 +274,7 @@ class SpinRewriter(object):
         return response[Api.RESP_P_NAMES.response]
 
     def text_with_spintax(self, text, confidence_level=Api.CONFIDENCE_LVL.medium):
-        """Return modified text with spintax elements inserted.
+        """Return text with spintax elements inserted.
 
         :param text: text to process
         :type text: string
