@@ -1,12 +1,11 @@
 Changelog
 =========
 
-0.1.2 (Unreleased)
+0.1.2 (2012-07-24)
 ------------------
 
-- Various fixes of bugs that surfaced when lib was put into production.
+- Various fixes of bugs that surfaced when lib was put into staging.
   [zupo]
-
 
 
 0.1.1 (2012-04-13)
