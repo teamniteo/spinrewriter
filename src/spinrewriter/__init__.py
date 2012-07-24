@@ -65,7 +65,7 @@ class Api(object):
                           confidence_level=CONFIDENCE_LVL.medium,
                           nested_spintax=False,
                           spintax_format=SPINTAX_FORMAT.pipe_curly):
-        """ Return processed spun text with spintax.
+        """Return processed spun text with spintax.
 
         :param text: original text that needs to be changed
         :type text: string
@@ -91,7 +91,7 @@ class Api(object):
 
     def unique_variation(self, text, protected_terms=None, confidence_level=CONFIDENCE_LVL.medium,
                          nested_spintax=False, spintax_format=SPINTAX_FORMAT.pipe_curly):
-        """ Return a unique variation of the given text.
+        """Return a unique variation of the given text.
 
         :param text: original text that needs to be changed
         :type text: string
@@ -144,7 +144,7 @@ class Api(object):
             return response
 
     def _send_request(self, params):
-        """ Invoke Spin Rewriter API with given parameters and return its response .
+        """Invoke Spin Rewriter API with given parameters and return its response.
 
         :param params: parameters to pass along with the request
         :type params: tuple of 2-tuples
