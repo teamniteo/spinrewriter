@@ -5,8 +5,11 @@ pep8:
   enabled: true
   command-line: --ignore E501
 
+# The recommended max line length value is 80 and most code should stick to this
+# rule. However, sometimes 80 is difficult to achieve (especially in tests)
+# so we allow a bit of overflow. 105 is still ok for 1280px screens.
 linelength:
-  length: 250
+  length: 105
 
 jshint:
   enabled: false
