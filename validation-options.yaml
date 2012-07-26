@@ -1,13 +1,18 @@
 tabs:
-  enable: true
+  enabled: true
 
 pep8:
-  enable: true
+  enabled: true
   command-line: --ignore E501
 
 linelength:
-    length: 250
+  length: 250
 
 jshint:
-    enable: false
+  enabled: false
 
+pyflakes:
+  enabled: true
+
+pylint:
+  enabled: false

@@ -1,3 +1,8 @@
+all: |
+  *
+  !bootstrap.py
+  !docs/conf.py
+
 css: |
   !*
 
@@ -23,4 +28,7 @@ tabs: |
   *.py
 
 pep8: |
+  *.py
+
+pyflakes: |
   *.py
