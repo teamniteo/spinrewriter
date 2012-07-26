@@ -2,13 +2,10 @@ language: python
 python:
   - 2.7
 install:
-  - sudo apt-get purge python2.5
   - python bootstrap.py
   - bin/buildout -q
 script:
-#  - ./pre-commit-check.sh
-  - bin/vvv setup.py
-  - bin/vvv src/spinrewriter
+  - ./pre-commit-check.sh
 
 notifications:
   irc:
