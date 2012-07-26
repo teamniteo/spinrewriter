@@ -7,3 +7,9 @@ docs/doctrees/
 docs/html/
 docs/make.bat
 dist/
+.mr.developer.cfg
+docs/Makefile
+eggs/
+parts/
+src/spinrewriter.egg-info/
+src/vvv/
