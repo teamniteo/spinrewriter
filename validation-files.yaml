@@ -1,3 +1,4 @@
+# TODO: comment what the sections below do
 all: |
   *
   !bootstrap.py
