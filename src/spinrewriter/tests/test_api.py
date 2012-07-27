@@ -59,7 +59,10 @@ class TestApi(unittest.TestCase):
         self.assertEquals(result['status'], u'OK')
         self.assertEquals(result['api_requests_made'], 0)
         self.assertEquals(result['api_requests_available'], 100)
-        self.assertEquals(result['response'], u'You made 0 API requests in the last 24 hours. 100 still available.')
+        self.assertEquals(
+            result['response'],
+            u'You made 0 API requests in the last 24 hours. 100 still available.'
+        )
 
     @mock.patch('spinrewriter.urllib2')
     def test_text_with_spintax_call(self, urllib2):
@@ -190,7 +193,9 @@ class TestApi(unittest.TestCase):
             ('api_key', 'test_api_key'),
             ('action', 'unique_variation'),
             ('text', 'This is my pet food.'),
-            ('protected_terms', 'food\ncat'),  # This is the only line we are interested in here, it needs to be newline-separated
+            # This is the only line we are interested in here,
+            # it needs to be newline-separated:
+            ('protected_terms', 'food\ncat'),
             ('confidence_level', 'medium'),
             ('nested_spintax', False),
             ('spintax_format', '{|}'),
@@ -223,7 +228,9 @@ class TestApi(unittest.TestCase):
             ('api_key', 'test_api_key'),
             ('action', 'unique_variation'),
             ('text', 'This is my dog.'),
-            ('protected_terms', ''),  # This is the only line we are interested in here, it needs to be an empty string, not an empty list
+            # This is the only line we are interested in here,
+            # it needs to be an empty string, not an empty list:
+            ('protected_terms', ''),
             ('confidence_level', 'medium'),
             ('nested_spintax', False),
             ('spintax_format', '{|}'),
