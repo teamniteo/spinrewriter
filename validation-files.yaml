@@ -1,12 +1,13 @@
 # Whitelist/blacklist config file.
 # Validators won’t try to process binary files.
 
-# Do not match bootstrap.py and docs/conf.py
-# for any validators.
+# Do not match bootstrap.py, docs/conf.py, docs/Makefile, ...
+# for any validator.
 all: |
   *
   !bootstrap.py
   !docs/conf.py
+  !docs/Makefile
 
 # No need for this validator currently.
 css: |
