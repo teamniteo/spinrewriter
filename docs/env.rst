@@ -21,8 +21,14 @@ Dependencies
 **Python 2.7**
 
   On a Debian based system install the ``python2.7-dev`` package. On OS X (and
-  others) use the `buildout.python <http://TODO>`_ to prepare a clean Python
-  installation.
+  others) use the
+  `buildout.python <https://github.com/collective/buildout.python>`_
+  to prepare a clean Python installation.
+
+**Virtualenv**
+
+  Recommended installation in
+  `virtualenv <http://www.virtualenv.org/en/latest/index.html#installation>`_.
 
 
 Build
@@ -36,7 +42,8 @@ to your local machine::
 What follows is initializing the `buildout` environment::
 
     $ cd spinrewriter
-    $ python2.6 bootstrap.py
+    $ virtualenv .
+    $ bin/python bootstrap.py
 
 And now you can `run the buildout`. This will fetch and configure tools and libs
 needed for developing `spinrewriter`::
