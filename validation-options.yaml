@@ -19,3 +19,7 @@ pyflakes:
 
 pylint:
   enabled: false
+
+# TODO: temporarily disabled
+rst:
+  enabled: false
