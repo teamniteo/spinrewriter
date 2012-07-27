@@ -13,3 +13,6 @@ eggs/
 parts/
 src/spinrewriter.egg-info/
 src/vvv/
+*.pyc
+local/
+distribute-*.tar.gz
