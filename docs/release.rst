@@ -17,7 +17,8 @@ Checklist
 
 Before every release make sure that:
 
-#. You have documented your changes in the ``HISTORY.rst`` file.
+#. You have documented your changes in the ``HISTORY.rst`` file and set the
+   release date for the version you are releasing.
 
 #. You have modified the version identifier in the ``version.txt`` to reflect
    the new release.
