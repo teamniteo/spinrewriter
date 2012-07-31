@@ -21,22 +21,18 @@ class TestApi(unittest.TestCase):
         self.assertEquals(self.api.api_key, 'test_api_key')
 
     @mock.patch('spinrewriter.urllib2')
-    @mock.patch('spinrewriter.urllib')
-    def test_send_request(self, urllib, urllib2):
+    def test_send_request(self, urllib2):
         """Test that _send_requests correctly parses JSON response into a dict
         and that request parameters get encoded beforehand.
         """
         # mock response from connection
-        urllib2.urlopen.return_value.read.return_value = '{"foo":"bar"}'
+        urllib2.urlopen.return_value.read.return_value = '{"foo":"bär"}'
 
         # call it
-        result = self.api._send_request({'foo': 'bar'})
+        result = self.api._send_request({'foo': u'bär'.encode('utf-8')})
 
         # test response
-        self.assertEquals(result['foo'], 'bar')
-
-        # were parameters encoded?
-        urllib.urlencode.assert_called_with({'foo': 'bar'})
+        self.assertEquals(result['foo'], u'bär')
 
     @mock.patch('spinrewriter.urllib2')
     def test_api_quota_call(self, urllib2):
@@ -70,7 +66,7 @@ class TestApi(unittest.TestCase):
         # mock response from urllib2
         mocked_response = u"""{
             "status":"OK",
-            "response":"This is my {dog|pet|animal}.",
+            "response":"This is my über cute {dog|pet|animal}.",
             "api_requests_made":1,
             "api_requests_available":99,
             "protected_terms":"food, cat",
@@ -81,7 +77,7 @@ class TestApi(unittest.TestCase):
 
         # call API
         result = self.api.text_with_spintax(
-            text="This is my dog.",
+            text=u"This is my über cute dog.",   # note the non-ascii character
             protected_terms=['food', 'cat']
         )
 
@@ -92,7 +88,7 @@ class TestApi(unittest.TestCase):
         self.assertEquals(result['protected_terms'], u"food, cat")
         self.assertEquals(result['nested_spintax'], u"false")
         self.assertEquals(result['confidence_level'], u"medium")
-        self.assertEquals(result['response'], u"This is my {dog|pet|animal}.")
+        self.assertEquals(result['response'], u"This is my über cute {dog|pet|animal}.")
 
     @mock.patch('spinrewriter.urllib2')
     def test_unique_variation_call(self, urllib2):
@@ -103,7 +99,7 @@ class TestApi(unittest.TestCase):
         # mock response from urllib2
         mocked_response = u"""{
             "status":"OK",
-            "response":"This is my pet.",
+            "response":"This is my über cute pet.",
             "api_requests_made":2,
             "api_requests_available":98,
             "protected_terms":"food, cat",
@@ -114,7 +110,7 @@ class TestApi(unittest.TestCase):
 
         # call API
         result = self.api.unique_variation(
-            text="This is my dog.",
+            text=u"This is my über cute dog.",
             protected_terms=['food', 'cat']
         )
 
@@ -125,7 +121,37 @@ class TestApi(unittest.TestCase):
         self.assertEquals(result['protected_terms'], u"food, cat")
         self.assertEquals(result['nested_spintax'], u"false")
         self.assertEquals(result['confidence_level'], u"medium")
-        self.assertEquals(result['response'], u"This is my pet.")
+        self.assertEquals(result['response'], u"This is my über cute pet.")
+
+    @mock.patch('spinrewriter.urllib2')
+    def test_unique_variation_from_spintax_call(self, urllib2):
+        """Test if Api.unique_variation_from_spintax() correctly parses the response it gets
+        from SpinRewriter API.
+        """
+
+        # mock response from urllib2
+        mocked_response = u"""{
+            "status":"OK",
+            "response":"This is my über cute animal.",
+            "api_requests_made":2,
+            "api_requests_available":98,
+            "confidence_level":"medium"
+        }"""
+        urllib2.urlopen.return_value.read.return_value = mocked_response
+
+        # call API
+        result = self.api.unique_variation_from_spintax(
+            text=u"This is my über cute [dog|pet|animal].",
+            nested_spintax=False,
+            spintax_format=self.api.SPINTAX_FORMAT.pipe_square
+        )
+
+        # test results
+        self.assertEquals(result['status'], u'OK')
+        self.assertEquals(result['api_requests_made'], 2)
+        self.assertEquals(result['api_requests_available'], 98)
+        self.assertEquals(result['confidence_level'], u"medium")
+        self.assertEquals(result['response'], u"This is my über cute animal.")
 
     @mock.patch('spinrewriter.urllib2')
     def test_transform_plain_text_call(self, urllib2):
@@ -137,7 +163,7 @@ class TestApi(unittest.TestCase):
         # mock response from urllib2
         mocked_response = u"""{
             "status":"OK",
-            "response":"This is my pet.",
+            "response":"This is my über cute pet.",
             "api_requests_made":3,
             "api_requests_available":97,
             "protected_terms":"",
@@ -149,7 +175,7 @@ class TestApi(unittest.TestCase):
         # call API
         result = self.api._transform_plain_text(
             action=Api.ACTION.unique_variation,
-            text="This is my dog.",
+            text=u"This is my über cute dog.",
             protected_terms=[],
             confidence_level=Api.CONFIDENCE_LVL.medium,
             nested_spintax=False,
@@ -163,7 +189,7 @@ class TestApi(unittest.TestCase):
         self.assertEquals(result['protected_terms'], u"")
         self.assertEquals(result['nested_spintax'], u"false")
         self.assertEquals(result['confidence_level'], u"medium")
-        self.assertEquals(result['response'], u"This is my pet.")
+        self.assertEquals(result['response'], u"This is my über cute pet.")
 
     @mock.patch('spinrewriter.Api._send_request')
     def test_protected_terms_transformation(self, _send_request):
@@ -171,7 +197,7 @@ class TestApi(unittest.TestCase):
         # prepare arguments for calling _transform_plain_text
         args = dict(
             action=Api.ACTION.unique_variation,
-            text="This is my pet food.",
+            text=u"This is my über tasty pet food.",
             protected_terms=['food', 'cat'],
             confidence_level=Api.CONFIDENCE_LVL.medium,
             nested_spintax=False,
@@ -189,7 +215,7 @@ class TestApi(unittest.TestCase):
             ('email_address', 'foo@bar.com'),
             ('api_key', 'test_api_key'),
             ('action', 'unique_variation'),
-            ('text', 'This is my pet food.'),
+            ('text', u'This is my über tasty pet food.'.encode('utf-8')),
             ('protected_terms', 'food\ncat'),  # This is the only line we are interested in here, it needs to be newline-separated
             ('confidence_level', 'medium'),
             ('nested_spintax', False),
@@ -204,7 +230,7 @@ class TestApi(unittest.TestCase):
         # prepare arguments for calling _transform_plain_text
         args = dict(
             action=Api.ACTION.unique_variation,
-            text="This is my dog.",
+            text=u"This is my über cute dog.",
             protected_terms=[],
             confidence_level=Api.CONFIDENCE_LVL.medium,
             nested_spintax=False,
@@ -222,7 +248,7 @@ class TestApi(unittest.TestCase):
             ('email_address', 'foo@bar.com'),
             ('api_key', 'test_api_key'),
             ('action', 'unique_variation'),
-            ('text', 'This is my dog.'),
+            ('text', u'This is my über cute dog.'.encode('utf-8')),
             ('protected_terms', ''),  # This is the only line we are interested in here, it needs to be an empty string, not an empty list
             ('confidence_level', 'medium'),
             ('nested_spintax', False),

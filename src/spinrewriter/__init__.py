@@ -132,7 +132,7 @@ class Api(object):
             (self.REQ_P_NAMES.email_address, self.email_address),
             (self.REQ_P_NAMES.api_key, self.api_key),
             (self.REQ_P_NAMES.action, self.ACTION.unique_variation_from_spintax),
-            (self.REQ_P_NAMES.text, text),
+            (self.REQ_P_NAMES.text, text.encode('utf-8')),
             (self.REQ_P_NAMES.nested_spintax, nested_spintax),
             (self.REQ_P_NAMES.spintax_format, spintax_format),
         )
@@ -233,16 +233,18 @@ class Api(object):
         :return: processed text and some other meta info
         :rtype: dictionary
         """
-        #NOTE: this could be improved to conditionally include some optional params (their default values would be None),
-        #but it's only a minor optimization and would make code a bit more complicated
-        protected_terms = "\n".join(protected_terms) if protected_terms else ""
-        # protected_terms can be separated by other characters also, like commas
+        if protected_terms:
+            # protected_terms could be separated by other characters too, like commas
+            protected_terms = [term.encode("utf-8") for term in protected_terms]
+            protected_terms = "\n".join(protected_terms)
+        else:
+            protected_terms = ""
 
         params = (
             (self.REQ_P_NAMES.email_address, self.email_address),
             (self.REQ_P_NAMES.api_key, self.api_key),
             (self.REQ_P_NAMES.action, action),
-            (self.REQ_P_NAMES.text, text),
+            (self.REQ_P_NAMES.text, text.encode('utf-8')),
             (self.REQ_P_NAMES.protected_terms, protected_terms),
             (self.REQ_P_NAMES.confidence_level, confidence_level),
             (self.REQ_P_NAMES.nested_spintax, nested_spintax),
