@@ -1,6 +1,17 @@
 Changelog
 =========
 
+0.1.3 (2012-07-31)
+------------------
+
+- Fixed unicode encode/decode error for article texts containing non-ascii
+  characters.
+  [plamut]
+
+- Added missing test coverage for the unique_variation_from_spintax method.
+  [plamut]
+
+
 0.1.2 (2012-07-24)
 ------------------
 
@@ -20,13 +31,13 @@ Changelog
 ----------------
 
 - SpinRewriter facade class.
-  [kunta]
+  [plamut]
 
 - Tests and documentation.
   [zupo]
 
 - Raw API access class.
-  [kunta]
+  [plamut]
 
 - Project skeleton.
   [zupo]
