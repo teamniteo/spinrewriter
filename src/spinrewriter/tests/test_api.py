@@ -251,15 +251,8 @@ class TestApi(unittest.TestCase):
             ('email_address', 'foo@bar.com'),
             ('api_key', 'test_api_key'),
             ('action', 'unique_variation'),
-<<<<<<< HEAD
             ('text', u'This is my über cute dog.'.encode('utf-8')),
             ('protected_terms', ''),  # This is the only line we are interested in here, it needs to be an empty string, not an empty list
-=======
-            ('text', 'This is my dog.'),
-            # This is the only line we are interested in here,
-            # it needs to be an empty string, not an empty list:
-            ('protected_terms', ''),
->>>>>>> vvv
             ('confidence_level', 'medium'),
             ('nested_spintax', False),
             ('spintax_format', '{|}'),
