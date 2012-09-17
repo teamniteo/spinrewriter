@@ -1,0 +1,51 @@
+# Whitelist/blacklist config file.
+# Validators won’t try to process binary files.
+
+# Do not match bootstrap.py, docs/conf.py, docs/Makefile, ...
+# for any validator.
+all: |
+  *
+  !bootstrap.py
+  !docs/conf.py
+  !docs/Makefile
+
+# No need for this validator currently.
+css: |
+  !*
+
+# Check for evilspace character in text files, more info:
+# http://miohtama.github.com/vvv/validators.html#module-vvv.validators.evilspace
+evilspace: |
+  *
+
+# No need for this validator currently.
+jshint: |
+  !*
+
+# Check for line length in text files.
+linelength: |
+  *
+
+# Check for breakpoints of python debugger in .py files.
+pdb: |
+  *.py
+
+# No need for this validator currently.
+pylint: |
+  !*
+
+# Check with rst validator against .rst files.
+rst: |
+  *.rst
+
+# Check for hard tabs in .py files.
+tabs: |
+  *.py
+
+# PEP8 validator on .py files.
+pep8: |
+  *.py
+
+# Pyflakes validator on .py files.
+pyflakes: |
+  *.py

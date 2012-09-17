@@ -8,16 +8,13 @@ function handle_exit {
 
 EXITCODE=0
 
-echo '====== Running tests ========='
+echo '====== Run tests ========='
 bin/test; handle_exit
 
-echo '====== Running PyFlakes ======'
-bin/pyflakes src/spinrewriter; handle_exit
-bin/pyflakes setup.py; handle_exit
-
-echo '====== Running pep8 =========='
-bin/pep8 --ignore=E501 --count src/spinrewriter; handle_exit
-bin/pep8 --ignore=E501 --count setup.py; handle_exit
+echo '====== Syntax validation ======'
+bin/vvv setup.py; handle_exit
+# bin/vvv docs/; handle_exit # TODO: fix validator so that it works without Python 3
+bin/vvv src/spinrewriter; handle_exit
 
 if [ $EXITCODE -ne 0 ]; then
     exit 1
