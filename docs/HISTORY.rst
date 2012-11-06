@@ -1,11 +1,14 @@
 Changelog
 =========
 
-0.1.4 (Unreleased)
+0.1.4 (2012-11-06)
 ------------------
 
 - Fixed spelling error in one of authentication error's message.
   [zupo]
+
+- Use 'vvv' for syntax validation.
+  [matejc]
 
 
 0.1.3 (2012-07-31)
