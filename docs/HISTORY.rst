@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.4 (Unreleased)
+------------------
+
+- Fixed spelling error in one of authentication error's message.
+  [zupo]
+
+
 0.1.3 (2012-07-31)
 ------------------
 

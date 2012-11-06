@@ -184,7 +184,7 @@ class Api(object):
             re.match(
                 error_msg,
                 r"Authentication failed."
-                r"Unique API key is not valid for this use.",
+                r"Unique API key is not valid for this user.",
                 re.IGNORECASE
             ) or
             re.match(
