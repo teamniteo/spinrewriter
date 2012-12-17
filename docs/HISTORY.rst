@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.1.5 (Unreleased)
+0.1.5 (2012-12-17)
 ------------------
 
 - Added tests for parsing error messages and fixed loads of nasty bugs found
