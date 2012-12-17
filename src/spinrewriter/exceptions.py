@@ -54,4 +54,5 @@ class InternalApiError(SpinRewriterApiError):
 class UnknownApiError(SpinRewriterApiError):
     """Raised when API call results in an unrecognized error."""
     def __str__(self):
-        return u"Unrecognized API error message received."
+        return (u"Unrecognized API error message received: %s" %
+                self.api_error_msg)

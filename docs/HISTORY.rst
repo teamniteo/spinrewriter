@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.1.5 (Unreleased)
+------------------
+
+- Added tests for parsing error messages and fixed loads of nasty bugs found
+  while writing these tests.
+  [zupo]
+
+
 0.1.4 (2012-11-06)
 ------------------
 

@@ -25,6 +25,7 @@ jshint: |
 # Check for line length in text files.
 linelength: |
   *
+  !src/spinrewriter/tests/test_errors.py
 
 # Check for breakpoints of python debugger in .py files.
 pdb: |
