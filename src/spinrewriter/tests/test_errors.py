@@ -98,3 +98,56 @@ class TestErrors(unittest.TestCase):
         with self.assertRaises(ex.UnknownApiError):
             self.api._raise_error(
                 {'response': 'foo'})
+
+    def _raise_error(self, msg):
+        try:
+            self.api._raise_error({'response': msg})
+        except ex.SpinRewriterApiError as e:
+            if isinstance(e, ex.UnknownApiError):
+                self.fail("UnknownApiError")
+
+        self.assertIn("{{'response': '{0}'}}".format(msg), self.test_errors_file)
+
+    def test_parsing_error_messages_v2(self):
+        with open(__file__, 'r') as f:
+            self.test_errors_file = f.read()
+
+            self._raise_error("Email address and unique API key are both required. At least one is missing.")
+
+            self._raise_error("Requested action does not exist. Please refer to the Spin Rewriter API documentation.")
+
+            self._raise_error("Authentication failed. No user with this email address found.")
+
+            self._raise_error("Authentication failed. Unique API key is not valid for this user.")
+
+            self._raise_error("This user does not have a valid Spin Rewriter subscription.")
+
+            self._raise_error("API quota exceeded. You can make 50 requests per day.")
+
+            self._raise_error("Original text too short.")
+
+            self._raise_error("Original text too long. Text can have up to 4,000 words.")
+
+            self._raise_error("Spinning syntax invalid. With this action you should provide text with existing valid {first option|second option} spintax.")
+
+            self._raise_error("You can only submit entirely new text for analysis once every 5 seconds.")
+
+            self._raise_error("The {first|second} spinning syntax invalid. Re-check the syntax, i.e. curly brackets and pipes.")
+
+            self._raise_error("Original text after analysis too long. Text can have up to 4,000 words.")
+
+            self._raise_error("Analysis of your text failed. Please inform us about this.")
+
+            self._raise_error("Synonyms for your text could not be loaded. Please inform us about this.")
+
+            self._raise_error("Unable to load your new analyzed project.")
+
+            self._raise_error("Unable to load your existing analyzed project.")
+
+            self._raise_error("Unable to find your project in the database.")
+
+            self._raise_error("Unable to load your analyzed project.")
+
+            self._raise_error("One-Click Rewrite failed.")
+
+            self._raise_error("Spinning syntax invalid.")
