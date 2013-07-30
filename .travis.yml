@@ -2,7 +2,7 @@ language: python
 python:
   - 2.7
 install:
-  - python bootstrap.py --version 1.7.1
+  - python bootstrap.py
   - bin/buildout -q
 script:
   - ./pre-commit-check.sh
