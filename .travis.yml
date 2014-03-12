@@ -2,13 +2,15 @@ language: python
 python:
   - 2.7
 install:
-  - python bootstrap.py
-  - bin/buildout -q
+  - make
 script:
-  - ./pre-commit-check.sh
+  - make tests
 
 notifications:
   irc:
-    - "irc.freenode.org#niteoweb"
+    channels:
+      - "irc.freenode.org#niteoweb"
+    template:
+      - "%{repository}/#%{build_number}/%{branch} (%{author}): %{message} %{build_url}"
   email:
     - maintenance@niteoweb.com
