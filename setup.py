@@ -10,8 +10,6 @@ import os
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = read('src', 'spinrewriter', 'version.txt').strip()
-
 long_description = \
     read('README.rst') + \
     read('docs', 'HISTORY.rst') + \
@@ -19,7 +17,7 @@ long_description = \
 
 setup(
     name='spinrewriter',
-    version=version,
+    version='0.1.6.dev0',
     description="Python bindings for SpinRewriter API",
     long_description=long_description,
     classifiers=[
@@ -41,7 +39,10 @@ setup(
     extras_require={
         # list libs needed for unittesting this project
         'test': [
+            'coverage',
             'mock',
+            'nose',
+            'nose-selecttests',
             'unittest2',
         ],
         # list libs needed for releasing this project

@@ -1,4 +1,4 @@
-.. _conventions:
+.. _dev_env:
 
 =====================
 Developer environment

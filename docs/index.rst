@@ -29,8 +29,12 @@ Credits
   <http://pypi.python.org/pypi/thebestspinner>`_ by Peter Flood.
 
 
-.. include:: HISTORY.rst
-.. include:: LICENSE.rst
+.. toctree::
+    :maxdepth: 2
+
+    HISTORY.rst
+    LICENSE.rst
+
 
 Indices and tables
 ==================

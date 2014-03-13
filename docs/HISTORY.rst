@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.6 (unreleased)
+------------------
+
+- Replace development tools and 100% test coverage.
+  [matejc]
+
+
 0.1.5 (2012-12-17)
 ------------------
 
